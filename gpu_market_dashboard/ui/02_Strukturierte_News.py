@@ -14,10 +14,10 @@ def main():
         for article in articles:
             article['provider'] = provider
             all_articles.append(article)
-    if not all_articles:
-        st.warning("Keine strukturierten News gefunden.")
-        return
     df = pd.DataFrame(all_articles)
+    if df.empty or 'provider' not in df.columns:
+        st.warning("Keine strukturierten News gefunden.")
+        st.stop()
     col1, col2, col3, col4 = st.columns(4)
     with col1:
         provider_filter = st.multiselect("Anbieter filtern", options=df['provider'].unique(), default=list(df['provider'].unique()))
