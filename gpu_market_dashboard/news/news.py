@@ -81,7 +81,7 @@ def fetch_and_extract_news(provider: str, max_items: int = 5) -> List[Dict]:
     """
     Fetches news and extracts structured data for each article.
     """
-    articles = fetch_news(provider, max_items)
+    articles = fetch_news(provider, max_items) or []
     for article in articles:
         text = article.get('title', '') + '\n' + article.get('summary', '')
         structured = extract_structured_news(text)
